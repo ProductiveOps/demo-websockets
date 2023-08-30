@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>WebSockets Demo</title>
+</head>
+
+<body>
+  <h2>WebSockets Demo</h2>
+
+  <div>Number: <input id="number" name="number" type="text" /></div>
+  <br />
+  <div>
+    <input type="button" value="Calculate Square" onclick="calculateSquare()" />
+  </div>
+
+  <script>
+    let socket = new WebSocket("ws://127.0.0.1:8080/ws");
+    console.log("Connecting");
+
+    function calculateSquare(number) {
+      var numberInput = document.getElementById("number");
+      socket.send(numberInput.value);
+    };
+
+    socket.onopen = () => {
+      console.log("Successfully connected");
+    };
+
+    socket.onclose = event => {
+      console.log("Connection closed: ", event);
+    };
+
+    socket.onerror = error => {
+      console.log("Error: ", error);
+    };
+
+    socket.onmessage = message => {
+      console.log(message);
+      alert(message.data);
+    }
+  </script>
+</body>
+
+</html>
