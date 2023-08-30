@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -14,10 +13,6 @@ func main() {
 	http.HandleFunc("/ws", webSocketHandler)
 
 	http.ListenAndServe(":8080", nil)
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Home Page")
 }
 
 func webSocketHandler(w http.ResponseWriter, r *http.Request) {
